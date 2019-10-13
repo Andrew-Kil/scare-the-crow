@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { getAllWords, getRandomWord } from "../../utils/utils";
 
 class Game extends Component {
   state = {
@@ -6,6 +7,17 @@ class Game extends Component {
     incorrectGuesses: [],
     userInput: "",
     secretWord: ""
+  };
+
+  componentDidMount() {
+    this.setSecretWord();
+  }
+
+  setSecretWord = async () => {
+    const allWords = await getAllWords();
+    const secretWord = getRandomWord(allWords.data.split("\n"));
+    this.setState({ secretWord });
+    console.log(this.state.secretWord);
   };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
