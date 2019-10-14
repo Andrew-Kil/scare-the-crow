@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getAllWords, getRandomWord } from "../../utils/utils";
+import { getRandomWord, isUserInputValid } from "../../utils/utils";
 
 class Game extends Component {
   state = {
@@ -14,22 +14,32 @@ class Game extends Component {
   }
 
   setSecretWord = async () => {
-    const allWords = await getAllWords();
-    const secretWord = getRandomWord(allWords.data.split("\n"));
+    const secretWord = await getRandomWord();
     this.setState({ secretWord });
-    console.log(this.state.secretWord);
+    console.log(secretWord);
   };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleSubmit = e => {
-    const { guessesRemaining, userInput, incorrectGuesses } = this.state;
+    const {
+      guessesRemaining,
+      incorrectGuesses,
+      userInput,
+      secretWord
+    } = this.state;
     e.preventDefault();
-    this.setState({
-      guessesRemaining: guessesRemaining - 1,
-      incorrectGuesses: [...incorrectGuesses, userInput],
-      userInput: ""
-    });
+    if (isUserInputValid(userInput, secretWord)) {
+      this.setState({
+        userInput: ""
+      });
+    } else {
+      this.setState({
+        guessesRemaining: guessesRemaining - 1,
+        incorrectGuesses: [...incorrectGuesses, userInput],
+        userInput: ""
+      });
+    }
   };
 
   render() {
