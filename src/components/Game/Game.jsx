@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { getRandomWord, isUserInputValid } from "../../utils/utils";
+import Word from "../Word/Word";
 
 class Game extends Component {
   state = {
     guessesRemaining: 6,
+    allGuesses: [],
     incorrectGuesses: [],
     userInput: "",
     secretWord: ""
@@ -24,6 +26,7 @@ class Game extends Component {
   handleSubmit = e => {
     const {
       guessesRemaining,
+      allGuesses,
       incorrectGuesses,
       userInput,
       secretWord
@@ -31,11 +34,13 @@ class Game extends Component {
     e.preventDefault();
     if (isUserInputValid(userInput, secretWord)) {
       this.setState({
+        allGuesses: [...allGuesses, userInput],
         userInput: ""
       });
     } else {
       this.setState({
         guessesRemaining: guessesRemaining - 1,
+        allGuesses: [...allGuesses, userInput],
         incorrectGuesses: [...incorrectGuesses, userInput],
         userInput: ""
       });
@@ -43,11 +48,18 @@ class Game extends Component {
   };
 
   render() {
-    const { guessesRemaining, userInput, incorrectGuesses } = this.state;
+    const {
+      guessesRemaining,
+      allGuesses,
+      incorrectGuesses,
+      userInput,
+      secretWord
+    } = this.state;
     return (
       <div>
         {guessesRemaining ? (
           <div>
+            <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <form onSubmit={this.handleSubmit}>
               <label>
                 Guess a letter:
