@@ -47,6 +47,15 @@ class Game extends Component {
     }
   };
 
+  startNewGame = () => {
+    this.setSecretWord();
+    this.setState({
+      guessesRemaining: 6,
+      allGuesses: [],
+      incorrectGuesses: []
+    });
+  };
+
   render() {
     const {
       guessesRemaining,
@@ -82,7 +91,10 @@ class Game extends Component {
             )}
           </div>
         ) : (
-          <h1>GAME OVER!!!</h1>
+          <div>
+            <h1>GAME OVER!!!</h1>
+            <button onClick={this.startNewGame}>New Game</button>
+          </div>
         )}
       </div>
     );

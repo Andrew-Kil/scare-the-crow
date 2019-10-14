@@ -10,31 +10,31 @@ The objective of this game is to guess the randomly picked secret word using 6 o
 
 # M.V.P. - Minimum Viable Product
 
-- Display the length of the secret word
-- Correct guesses will show all occurrences of that letter
-- Incorrect guesses will decrement the number of guesses by 1
-- Display the number of guesses remaining
-- Display a list of incorrect guesses
-- Retrieve a list of words from the word dictionary REST API
-- App is hosted online
-- Responsive design
+- [x] Display the length of the secret word
+- [x] Correct guesses will show all occurrences of that letter
+- [x] Incorrect guesses will decrement the number of guesses by 1
+- [x] Display a list of incorrect guesses
+- [x] Display the number of guesses remaining
+- [x] Retrieve a list of words from the word dictionary REST API
 
 # Additional features (for consideration)
 
-- 'New Game' option
-- Additional options for difficulty:
-  - Countdown timer, for example:
+- [x] 'New Game' option
+- [ ] App is hosted online
+- [ ] Responsive design
+- [ ] Additional options for difficulty:
+  - [ ] Countdown timer, for example:
     - 3 seconds to pick a letter
     - 10 seconds to reveal the secret word
-  - Choose difficulty:
+  - [ ] Choose difficulty:
     - Easy - 8 HP
     - Normal - 6 HP
     - Hard - 4 HP
     - Helloween - 3 HP
-  - Use API parameters to choose more difficult words
-- Scoring system
+  - [ ] Use API parameters to choose more difficult words
+- [ ] Scoring system
   - 3 lives, 6 HP each
   - Points scale based on number of guesses or time remaining
-- Option to guess the secret word instead of one letter at a time
-- Scarecrow diagram
+- [ ] Option to guess the secret word instead of one letter at a time
+- [ ] Scarecrow diagram
   - Opposite of Hangman: Scarecrow diagram appears at start of game and loses a body part every time it takes damage
