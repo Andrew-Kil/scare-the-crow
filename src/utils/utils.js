@@ -21,3 +21,22 @@ const isUserInputSingleChar = userInput => {
 const isUserInputInSecretWord = (userInput, secretWord) => {
   return secretWord.includes(userInput) ? true : false;
 };
+
+export const gameDifficultyTypes = {
+  easy: {
+    gameDifficulty: "easy",
+    guessesRemaining: 7
+  },
+  normal: {
+    gameDifficulty: "normal",
+    guessesRemaining: 6
+  },
+  hard: {
+    gameDifficulty: "hard",
+    guessesRemaining: 5
+  },
+  helloween: {
+    gameDifficulty: "helloween",
+    guessesRemaining: 4
+  }
+};

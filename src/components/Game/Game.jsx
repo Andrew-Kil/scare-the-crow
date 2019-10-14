@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import { getRandomWord, isUserInputValid } from "../../utils/utils";
+import {
+  getRandomWord,
+  isUserInputValid,
+  gameDifficultyTypes
+} from "../../utils/utils";
 import Word from "../Word/Word";
 
 class Game extends Component {
   state = {
+    gameDifficulty: "normal",
     guessesRemaining: 6,
     allGuesses: [],
     incorrectGuesses: [],
@@ -21,7 +26,13 @@ class Game extends Component {
     console.log(secretWord);
   };
 
-  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+  handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  handleSelectChange = e => {
+    const newState = gameDifficultyTypes[e.target.value];
+    this.setState({ ...newState });
+    this.startNewGame();
+  };
 
   handleSubmit = e => {
     const {
@@ -47,10 +58,11 @@ class Game extends Component {
     }
   };
 
-  startNewGame = () => {
+  startNewGame = gameDifficulty => {
     this.setSecretWord();
+    const newState = gameDifficultyTypes[gameDifficulty];
     this.setState({
-      guessesRemaining: 6,
+      ...newState,
       allGuesses: [],
       incorrectGuesses: []
     });
@@ -58,6 +70,7 @@ class Game extends Component {
 
   render() {
     const {
+      gameDifficulty,
       guessesRemaining,
       allGuesses,
       incorrectGuesses,
@@ -76,7 +89,7 @@ class Game extends Component {
                   type="text"
                   value={userInput}
                   name="userInput"
-                  onChange={this.handleChange}
+                  onChange={this.handleInputChange}
                   autoComplete="off"></input>
               </label>
               <button type="submit" onSubmit={this.handleSubmit}>
@@ -89,13 +102,26 @@ class Game extends Component {
             ) : (
               ""
             )}
+            <label>
+              Difficulty:{" "}
+              <select
+                defaultValue={gameDifficulty}
+                onChange={this.handleSelectChange}>
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+                <option value="hard">Hard</option>
+                <option value="helloween">Helloween</option>
+              </select>
+            </label>
           </div>
         ) : (
           <div>
             <h1>GAME OVER!!!</h1>
-            <button onClick={this.startNewGame}>New Game</button>
           </div>
         )}
+        <button onClick={() => this.startNewGame(gameDifficulty)}>
+          New Game
+        </button>
       </div>
     );
   }
