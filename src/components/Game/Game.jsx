@@ -5,6 +5,7 @@ import {
   gameDifficultyTypes
 } from "../../utils/utils";
 import Word from "../Word/Word";
+import scarecrow from "../../assets/scarecrow.png";
 
 class Game extends Component {
   state = {
@@ -82,6 +83,8 @@ class Game extends Component {
         {guessesRemaining ? (
           <div>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
+            <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
+            <h2>HP: {guessesRemaining}</h2>
             <form onSubmit={this.handleSubmit}>
               <label>
                 Guess a letter:
@@ -96,7 +99,6 @@ class Game extends Component {
                 Submit
               </button>
             </form>
-            <h2>HP: {guessesRemaining}</h2>
             {incorrectGuesses.length ? (
               <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
             ) : (
