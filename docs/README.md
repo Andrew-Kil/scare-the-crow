@@ -4,6 +4,28 @@ Scare the Crow is my implementation of the classic word game, [Hangman](<https:/
 
 The objective of this game is to guess the randomly picked secret word using 6 or less guesses. The user plays the role of a scarecrow with 6 HP (hit points or health points). Each time the player guesses incorrectly, the crow dive-bombs the scarecrow, dealing damage equivalent to 1 HP. If the user guesses the secret word correctly, with HP remaining, the scarecrow successfully scares the crow away! If not, the crow defeats the scarecrow!
 
+# Prerequisites
+
+- [node](https://nodejs.org/en/)
+
+# Installation
+
+1. <b>cd scare-the-crow</b>
+
+- navigate to scare-the-crow directory
+
+2. <b>npm install</b>
+
+- install dependencies
+
+3. <b>npm start</b>
+
+- run dev server
+
+4. <b>http://localhost:3000/</b>
+
+- app should be viewable in browser
+
 # Wireframe
 
 ![Scare the Crow](scare-the-crow.png)
@@ -50,20 +72,22 @@ The objective of this game is to guess the randomly picked secret word using 6 o
 
 | Task                                                                    | Completed | Priority |
 | :---------------------------------------------------------------------- | :-------: | -------: |
-| Guess should only be one character                                      |   True    |     High |
-| Guess should be lowercase                                               |   True    |     High |
-| Guess should be a letter                                                |   True    |     High |
-| Guess should not accept previous guess                                  |   True    |     High |
-| Refactor win condition to start new round instead of "Victory!" text    |   False   |     High |
-| Refactor lose condition to show stats & image instead of "Defeat!" text |   False   |     High |
-| Incorporate local storage to save data                                  |   False   |   Medium |
-| Track and display score                                                 |   False   |   Medium |
-| Update font (Halloween theme)                                           |   False   |      Low |
-| Add colors (Halloween theme)                                            |   False   |      Low |
-| Add option for hints (TBD)                                              |   False   |      Low |
-| Add option for buffs (TBD)                                              |   False   |      Low |
-| Add option for potions (TBD)                                            |   False   |      Low |
-| Update scarecrow based on HP                                            |   False   |      Low |
-| Unique theme/color for difficulty level                                 |   False   |      Low |
-| Add about/info text                                                     |   False   |      Low |
-| Add sound for valid/invalid guess and/or victory/defeat                 |   False   |      Low |
+| Guess should only be one character                                      |    ✅     |     High |
+| Guess should be lowercase                                               |    ✅     |     High |
+| Guess should be a letter                                                |    ✅     |     High |
+| Guess should not accept previous guess                                  |    ✅     |     High |
+| Refactor win condition to start new round instead of "Victory!" text    |    ⬜️    |     High |
+| Refactor lose condition to show stats & image instead of "Defeat!" text |    ⬜️    |     High |
+| Incorporate local storage to save data                                  |    ⬜️    |   Medium |
+| Track and display score                                                 |    ⬜️    |   Medium |
+| Use API URL parameters to increase/decrease difficulty                  |    ⬜️    |   Medium |
+| Update font (Halloween theme)                                           |    ⬜️    |      Low |
+| Add colors (Halloween theme)                                            |    ⬜️    |      Low |
+| Add option for hints (TBD)                                              |    ⬜️    |      Low |
+| Add option for buffs (TBD)                                              |    ⬜️    |      Low |
+| Add option for potions (TBD)                                            |    ⬜️    |      Low |
+| Update scarecrow based on HP                                            |    ⬜️    |      Low |
+| Unique theme/color for difficulty level                                 |    ⬜️    |      Low |
+| Add about/info text                                                     |    ⬜️    |      Low |
+| Add sound for valid/invalid guess and/or victory/defeat                 |    ⬜️    |      Low |
+| Add tips (e.g. use vowels 'a','e','i','o','u')                          |    ⬜️    |      Low |
