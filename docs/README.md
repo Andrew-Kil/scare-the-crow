@@ -45,3 +45,20 @@ The objective of this game is to guess the randomly picked secret word using 6 o
 - [ ] Potions
   - When activated, user regains X HP
   - Obtained randomly or X amount of levels
+
+# Todo List
+
+| Task                                   | Completed | Priority |
+| :------------------------------------- | :-------: | -------: |
+| Guess should only be one character     |   True    |     High |
+| Guess should be lowercase              |   True    |     High |
+| Guess should be a letter               |   True    |     High |
+| Guess should not accept previous guess |   True    |     High |
+| Update font (Halloween theme)          |   False   |      Low |
+| Add colors (Halloween theme)           |   False   |      Low |
+| Track and display score                |   False   |   Medium |
+| Add option for hints (TBD)             |   False   |      Low |
+| Add option for buffs (TBD)             |   False   |      Low |
+| Add option for potions (TBD)           |   False   |      Low |
+| Incorporate local storage to save data |   False   |   Medium |
+| Update scarecrow based on HP           |   False   |   Medium |
