@@ -46,9 +46,8 @@ class Game extends Component {
   };
 
   handleSubmit = e => {
-    e.preventDefault();
     const { userGuess, allGuesses } = this.state;
-    !isUserGuessRepeated(userGuess, allGuesses)
+    !isUserGuessRepeated(userGuess, allGuesses) && e.target.value
       ? this.setState(
           oldState => {
             const {
@@ -117,23 +116,20 @@ class Game extends Component {
             <h2>
               HP: {currentHp}/{totalHp}
             </h2>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Guess a letter:
-                <input
-                  type="text"
-                  value={userGuess}
-                  maxLength="1"
-                  name="userGuess"
-                  onChange={this.handleInputChange}
-                  autoComplete="off"
-                  autoFocus={true}
-                  style={{ width: "20px" }}></input>
-              </label>
-              <button type="submit" onSubmit={this.handleSubmit}>
-                Submit
-              </button>
-            </form>
+            <label>
+              Guess a letter:
+              <input
+                type="text"
+                value={userGuess}
+                maxLength="1"
+                name="userGuess"
+                onChange={this.handleInputChange}
+                autoComplete="off"
+                autoFocus={true}
+                required={true}
+                onKeyUp={this.handleSubmit}
+                style={{ width: "20px" }}></input>
+            </label>
             <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
             <p>All Guesses: {allGuesses.toString()}</p>
             <label>
