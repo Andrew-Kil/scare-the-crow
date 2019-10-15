@@ -17,24 +17,31 @@ The objective of this game is to guess the randomly picked secret word using 6 o
 - [x] Display the number of guesses remaining
 - [x] Retrieve a list of words from the word dictionary REST API
 
-# Additional features (for consideration)
+# Additional features - for consideration
 
 - [x] 'New Game' option
 - [ ] App is hosted online
 - [ ] Responsive design
 - [ ] Additional options for difficulty:
   - [ ] Countdown timer, for example:
-    - 3 seconds to pick a letter
-    - 10 seconds to reveal the secret word
-  - [ ] Choose difficulty:
-    - Easy - 8 HP
-    - Normal - 6 HP
-    - Hard - 4 HP
-    - Helloween - 3 HP
+    - X Seconds to pick a letter
+    - X Seconds to reveal the secret word
+  - [x] Choose difficulty:
+    - Easy - X HP
+    - Normal - X HP
+    - Hard - X HP
+    - Helloween - X HP
   - [ ] Use API parameters to choose more difficult words
 - [ ] Scoring system
-  - 3 lives, 6 HP each
+  - X Lives, X HP each
   - Points scale based on number of guesses or time remaining
 - [ ] Option to guess the secret word instead of one letter at a time
 - [ ] Scarecrow diagram
   - Opposite of Hangman: Scarecrow diagram appears at start of game and loses a body part every time it takes damage
+- [ ] Hints
+  - Reveal a letter at the cost of points or deduct from total hints remaining
+- [ ] Buffs
+  - When activated, user can guess as many times within X seconds without penalties
+- [ ] Potions
+  - When activated, user regains X HP
+  - Obtained randomly or X amount of levels
