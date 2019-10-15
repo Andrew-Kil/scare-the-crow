@@ -15,7 +15,6 @@ class Game extends Component {
     gameDifficulty: "normal",
     totalHp: 6,
     currentHp: 6,
-    hpPercent: 100,
     allGuesses: [],
     incorrectGuesses: [],
     userGuess: "",
@@ -67,7 +66,6 @@ class Game extends Component {
       },
       () => {
         const { secretWord, allGuesses } = this.state;
-        this.calculateHpPercent();
         if (isUserWinner(secretWord, allGuesses)) {
           this.setState({ userWin: true });
         }
@@ -78,21 +76,17 @@ class Game extends Component {
   startNewGame = gameDifficulty => {
     this.getAndSetSecretWord();
     const newState = gameDifficultyTypes[gameDifficulty];
-    this.setState(
-      {
-        ...newState,
-        userWin: false,
-        allGuesses: [],
-        incorrectGuesses: []
-      },
-      () => this.calculateHpPercent()
-    );
+    this.setState({
+      ...newState,
+      userWin: false,
+      allGuesses: [],
+      incorrectGuesses: []
+    });
   };
 
   calculateHpPercent = () => {
-    this.setState({
-      hpPercent: (this.state.currentHp / this.state.totalHp) * 100
-    });
+    const { currentHp, totalHp } = this.state;
+    return (currentHp / totalHp) * 100;
   };
 
   render() {
@@ -102,7 +96,6 @@ class Game extends Component {
       currentHp,
       allGuesses,
       totalHp,
-      hpPercent,
       incorrectGuesses,
       userGuess,
       secretWord
@@ -113,7 +106,7 @@ class Game extends Component {
           <div>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
-            <HpBar hpPercent={hpPercent}></HpBar>
+            <HpBar hpPercent={this.calculateHpPercent()}></HpBar>
             <h2>
               HP: {currentHp}/{totalHp}
             </h2>
