@@ -25,19 +25,23 @@ const isUserGuessInSecretWord = (userGuess, secretWord) => {
 export const gameDifficultyTypes = {
   easy: {
     gameDifficulty: "easy",
-    guessesRemaining: 7
+    totalHp: 7,
+    currentHp: 7
   },
   normal: {
     gameDifficulty: "normal",
-    guessesRemaining: 6
+    totalHp: 6,
+    currentHp: 6
   },
   hard: {
     gameDifficulty: "hard",
-    guessesRemaining: 5
+    totalHp: 5,
+    currentHp: 5
   },
   helloween: {
     gameDifficulty: "helloween",
-    guessesRemaining: 4
+    totalHp: 4,
+    currentHp: 4
   }
 };
 

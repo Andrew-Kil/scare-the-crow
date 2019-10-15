@@ -5,6 +5,7 @@ import {
   gameDifficultyTypes,
   isUserWinner
 } from "../../utils/utils";
+import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
 import scarecrow from "../../assets/scarecrow.png";
 
@@ -12,7 +13,9 @@ class Game extends Component {
   state = {
     userWin: false,
     gameDifficulty: "normal",
-    guessesRemaining: 6,
+    totalHp: 6,
+    currentHp: 6,
+    hpPercent: 100,
     allGuesses: [],
     incorrectGuesses: [],
     userGuess: "",
@@ -36,7 +39,7 @@ class Game extends Component {
   handleSelectChange = e => {
     const newState = gameDifficultyTypes[e.target.value];
     this.setState({ ...newState });
-    this.startNewGame();
+    this.startNewGame(e.target.value);
   };
 
   handleSubmit = e => {
@@ -44,7 +47,7 @@ class Game extends Component {
     this.setState(
       oldState => {
         const {
-          guessesRemaining,
+          currentHp,
           allGuesses,
           incorrectGuesses,
           userGuess,
@@ -56,7 +59,7 @@ class Game extends Component {
               userGuess: ""
             }
           : {
-              guessesRemaining: guessesRemaining - 1,
+              currentHp: currentHp - 1,
               allGuesses: [...allGuesses, userGuess],
               incorrectGuesses: [...incorrectGuesses, userGuess],
               userGuess: ""
@@ -64,6 +67,7 @@ class Game extends Component {
       },
       () => {
         const { secretWord, allGuesses } = this.state;
+        this.calculateHpPercent();
         if (isUserWinner(secretWord, allGuesses)) {
           this.setState({ userWin: true });
         }
@@ -74,11 +78,20 @@ class Game extends Component {
   startNewGame = gameDifficulty => {
     this.getAndSetSecretWord();
     const newState = gameDifficultyTypes[gameDifficulty];
+    this.setState(
+      {
+        ...newState,
+        userWin: false,
+        allGuesses: [],
+        incorrectGuesses: []
+      },
+      () => this.calculateHpPercent()
+    );
+  };
+
+  calculateHpPercent = () => {
     this.setState({
-      ...newState,
-      userWin: false,
-      allGuesses: [],
-      incorrectGuesses: []
+      hpPercent: (this.state.currentHp / this.state.totalHp) * 100
     });
   };
 
@@ -86,19 +99,24 @@ class Game extends Component {
     const {
       userWin,
       gameDifficulty,
-      guessesRemaining,
+      currentHp,
       allGuesses,
+      totalHp,
+      hpPercent,
       incorrectGuesses,
       userGuess,
       secretWord
     } = this.state;
     return (
       <div>
-        {!userWin && guessesRemaining ? (
+        {!userWin && currentHp ? (
           <div>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
-            <h2>HP: {guessesRemaining}</h2>
+            <HpBar hpPercent={hpPercent}></HpBar>
+            <h2>
+              HP: {currentHp}/{totalHp}
+            </h2>
             <form onSubmit={this.handleSubmit}>
               <label>
                 Guess a letter:
@@ -127,13 +145,14 @@ class Game extends Component {
               </select>
             </label>
           </div>
-        ) : userWin && guessesRemaining ? (
+        ) : userWin && currentHp ? (
           <div>
             <h1>VICTORY!!!</h1>
           </div>
         ) : (
           <div>
             <h1>DEFEAT!!!</h1>
+            <h3>Secret Word: {secretWord}</h3>
           </div>
         )}
         <div>
