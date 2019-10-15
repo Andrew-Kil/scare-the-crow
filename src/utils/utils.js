@@ -7,10 +7,10 @@ export const getRandomWord = async () => {
     .catch(err => console.error(err));
 };
 
-export const isUserGuessValid = (userInput, secretWord) => {
+export const isUserGuessValid = (userGuess, secretWord) => {
   return (
-    isUserGuessSingleChar(userInput) &&
-    isUserGuessInSecretWord(userInput, secretWord)
+    isUserGuessSingleChar(userGuess) &&
+    isUserGuessInSecretWord(userGuess, secretWord)
   );
 };
 
@@ -20,6 +20,14 @@ const isUserGuessSingleChar = userGuess => {
 
 const isUserGuessInSecretWord = (userGuess, secretWord) => {
   return secretWord.includes(userGuess) ? true : false;
+};
+
+export const isUserGuessLetter = userGuess => {
+  return userGuess.toLowerCase() !== userGuess.toUpperCase();
+};
+
+export const isUserGuessRepeated = (userGuess, allGuesses) => {
+  return allGuesses.includes(userGuess);
 };
 
 export const gameDifficultyTypes = {
