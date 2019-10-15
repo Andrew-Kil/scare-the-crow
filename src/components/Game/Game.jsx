@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import {
   getRandomWord,
   isUserGuessValid,
+  isUserGuessRepeated,
+  isUserGuessLetter,
   gameDifficultyTypes,
   isUserWinner
 } from "../../utils/utils";
@@ -32,7 +34,9 @@ class Game extends Component {
   };
 
   handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    if (isUserGuessLetter(e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value.toLowerCase() });
+    }
   };
 
   handleSelectChange = e => {
@@ -43,34 +47,37 @@ class Game extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.setState(
-      oldState => {
-        const {
-          currentHp,
-          allGuesses,
-          incorrectGuesses,
-          userGuess,
-          secretWord
-        } = oldState;
-        return isUserGuessValid(userGuess, secretWord)
-          ? {
-              allGuesses: [...allGuesses, userGuess],
-              userGuess: ""
+    const { userGuess, allGuesses } = this.state;
+    !isUserGuessRepeated(userGuess, allGuesses)
+      ? this.setState(
+          oldState => {
+            const {
+              currentHp,
+              allGuesses,
+              incorrectGuesses,
+              userGuess,
+              secretWord
+            } = oldState;
+            return isUserGuessValid(userGuess, secretWord)
+              ? {
+                  allGuesses: [...allGuesses, userGuess],
+                  userGuess: ""
+                }
+              : {
+                  currentHp: currentHp - 1,
+                  allGuesses: [...allGuesses, userGuess],
+                  incorrectGuesses: [...incorrectGuesses, userGuess],
+                  userGuess: ""
+                };
+          },
+          () => {
+            const { secretWord, allGuesses } = this.state;
+            if (isUserWinner(secretWord, allGuesses)) {
+              this.setState({ userWin: true });
             }
-          : {
-              currentHp: currentHp - 1,
-              allGuesses: [...allGuesses, userGuess],
-              incorrectGuesses: [...incorrectGuesses, userGuess],
-              userGuess: ""
-            };
-      },
-      () => {
-        const { secretWord, allGuesses } = this.state;
-        if (isUserWinner(secretWord, allGuesses)) {
-          this.setState({ userWin: true });
-        }
-      }
-    );
+          }
+        )
+      : this.setState({ userGuess: "" });
   };
 
   startNewGame = gameDifficulty => {
@@ -116,9 +123,12 @@ class Game extends Component {
                 <input
                   type="text"
                   value={userGuess}
+                  maxLength="1"
                   name="userGuess"
                   onChange={this.handleInputChange}
-                  autoComplete="off"></input>
+                  autoComplete="off"
+                  autoFocus={true}
+                  style={{ width: "20px" }}></input>
               </label>
               <button type="submit" onSubmit={this.handleSubmit}>
                 Submit
