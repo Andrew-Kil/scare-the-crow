@@ -1,0 +1,24 @@
+$primary-color: #e88a1a;
+$secondary-color: #141414;
+$tertiary-color: #cf3030;
+$quaternary-color: #d9d9d9;
+
+* {
+  color: $secondary-color;
+  font-family: "Creepster", cursive;
+  font-size: 22px;
+}
+
+body {
+  background-color: $primary-color;
+}
+
+.App {
+  text-align: center;
+}
+
+.scare-the-crow-header {
+  font-family: "Nosifer", cursive;
+  font-size: 52px;
+  margin: 0;
+}

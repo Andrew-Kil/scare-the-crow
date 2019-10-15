@@ -10,6 +10,7 @@ import {
 import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
 import scarecrow from "../../assets/scarecrow.png";
+import "./Game.scss";
 
 class Game extends Component {
   state = {
@@ -113,7 +114,7 @@ class Game extends Component {
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
             <HpBar hpPercent={this.calculateHpPercent()}></HpBar>
-            <h2>
+            <h2 className="hp-text">
               HP: {currentHp}/{totalHp}
             </h2>
             <label>
@@ -131,7 +132,6 @@ class Game extends Component {
                 style={{ width: "20px" }}></input>
             </label>
             <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
-            <p>All Guesses: {allGuesses.toString()}</p>
             <label>
               Difficulty:{" "}
               <select
@@ -154,7 +154,7 @@ class Game extends Component {
             <h3>Secret Word: {secretWord}</h3>
           </div>
         )}
-        <div>
+        <div className="new-game-button-container">
           <button onClick={() => this.startNewGame(gameDifficulty)}>
             New Game
           </button>
