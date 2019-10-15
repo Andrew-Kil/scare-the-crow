@@ -7,19 +7,19 @@ export const getRandomWord = async () => {
     .catch(err => console.error(err));
 };
 
-export const isUserInputValid = (userInput, secretWord) => {
+export const isUserGuessValid = (userInput, secretWord) => {
   return (
-    isUserInputSingleChar(userInput) &&
-    isUserInputInSecretWord(userInput, secretWord)
+    isUserGuessSingleChar(userInput) &&
+    isUserGuessInSecretWord(userInput, secretWord)
   );
 };
 
-const isUserInputSingleChar = userInput => {
-  return userInput.length === 1 ? true : false;
+const isUserGuessSingleChar = userGuess => {
+  return userGuess.length === 1 ? true : false;
 };
 
-const isUserInputInSecretWord = (userInput, secretWord) => {
-  return secretWord.includes(userInput) ? true : false;
+const isUserGuessInSecretWord = (userGuess, secretWord) => {
+  return secretWord.includes(userGuess) ? true : false;
 };
 
 export const gameDifficultyTypes = {
@@ -39,4 +39,8 @@ export const gameDifficultyTypes = {
     gameDifficulty: "helloween",
     guessesRemaining: 4
   }
+};
+
+export const isUserWinner = (secretWord, allGuesses) => {
+  return [...secretWord].every(letter => allGuesses.includes(letter));
 };

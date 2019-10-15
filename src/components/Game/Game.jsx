@@ -1,33 +1,37 @@
 import React, { Component } from "react";
 import {
   getRandomWord,
-  isUserInputValid,
-  gameDifficultyTypes
+  isUserGuessValid,
+  gameDifficultyTypes,
+  isUserWinner
 } from "../../utils/utils";
 import Word from "../Word/Word";
 import scarecrow from "../../assets/scarecrow.png";
 
 class Game extends Component {
   state = {
+    userWin: false,
     gameDifficulty: "normal",
     guessesRemaining: 6,
     allGuesses: [],
     incorrectGuesses: [],
-    userInput: "",
+    userGuess: "",
     secretWord: ""
   };
 
   componentDidMount() {
-    this.setSecretWord();
+    this.getAndSetSecretWord();
   }
 
-  setSecretWord = async () => {
+  getAndSetSecretWord = async () => {
     const secretWord = await getRandomWord();
     this.setState({ secretWord });
     console.log(secretWord);
   };
 
-  handleInputChange = e => this.setState({ [e.target.name]: e.target.value });
+  handleInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   handleSelectChange = e => {
     const newState = gameDifficultyTypes[e.target.value];
@@ -36,34 +40,43 @@ class Game extends Component {
   };
 
   handleSubmit = e => {
-    const {
-      guessesRemaining,
-      allGuesses,
-      incorrectGuesses,
-      userInput,
-      secretWord
-    } = this.state;
     e.preventDefault();
-    if (isUserInputValid(userInput, secretWord)) {
-      this.setState({
-        allGuesses: [...allGuesses, userInput],
-        userInput: ""
-      });
-    } else {
-      this.setState({
-        guessesRemaining: guessesRemaining - 1,
-        allGuesses: [...allGuesses, userInput],
-        incorrectGuesses: [...incorrectGuesses, userInput],
-        userInput: ""
-      });
-    }
+    this.setState(
+      oldState => {
+        const {
+          guessesRemaining,
+          allGuesses,
+          incorrectGuesses,
+          userGuess,
+          secretWord
+        } = oldState;
+        return isUserGuessValid(userGuess, secretWord)
+          ? {
+              allGuesses: [...allGuesses, userGuess],
+              userGuess: ""
+            }
+          : {
+              guessesRemaining: guessesRemaining - 1,
+              allGuesses: [...allGuesses, userGuess],
+              incorrectGuesses: [...incorrectGuesses, userGuess],
+              userGuess: ""
+            };
+      },
+      () => {
+        const { secretWord, allGuesses } = this.state;
+        if (isUserWinner(secretWord, allGuesses)) {
+          this.setState({ userWin: true });
+        }
+      }
+    );
   };
 
   startNewGame = gameDifficulty => {
-    this.setSecretWord();
+    this.getAndSetSecretWord();
     const newState = gameDifficultyTypes[gameDifficulty];
     this.setState({
       ...newState,
+      userWin: false,
       allGuesses: [],
       incorrectGuesses: []
     });
@@ -71,16 +84,17 @@ class Game extends Component {
 
   render() {
     const {
+      userWin,
       gameDifficulty,
       guessesRemaining,
       allGuesses,
       incorrectGuesses,
-      userInput,
+      userGuess,
       secretWord
     } = this.state;
     return (
       <div>
-        {guessesRemaining ? (
+        {!userWin && guessesRemaining ? (
           <div>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
@@ -90,8 +104,8 @@ class Game extends Component {
                 Guess a letter:
                 <input
                   type="text"
-                  value={userInput}
-                  name="userInput"
+                  value={userGuess}
+                  name="userGuess"
                   onChange={this.handleInputChange}
                   autoComplete="off"></input>
               </label>
@@ -99,11 +113,8 @@ class Game extends Component {
                 Submit
               </button>
             </form>
-            {incorrectGuesses.length ? (
-              <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
-            ) : (
-              ""
-            )}
+            <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
+            <p>All Guesses: {allGuesses.toString()}</p>
             <label>
               Difficulty:{" "}
               <select
@@ -116,14 +127,20 @@ class Game extends Component {
               </select>
             </label>
           </div>
+        ) : userWin && guessesRemaining ? (
+          <div>
+            <h1>VICTORY!!!</h1>
+          </div>
         ) : (
           <div>
-            <h1>GAME OVER!!!</h1>
+            <h1>DEFEAT!!!</h1>
           </div>
         )}
-        <button onClick={() => this.startNewGame(gameDifficulty)}>
-          New Game
-        </button>
+        <div>
+          <button onClick={() => this.startNewGame(gameDifficulty)}>
+            New Game
+          </button>
+        </div>
       </div>
     );
   }
