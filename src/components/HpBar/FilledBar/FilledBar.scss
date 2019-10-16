@@ -3,4 +3,8 @@
   height: 100%;
   border-radius: 5px;
   transition: width 0.5s ease-in;
+  -o-transition: width 0.5s ease-in;
+  -ms-transition: width 0.5s ease-in;
+  -moz-transition: width 0.5s ease-in;
+  -webkit-transition: width 0.5s ease-in;
 }

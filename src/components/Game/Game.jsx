@@ -109,8 +109,8 @@ class Game extends Component {
         {!userWin && currentHp ? (
           <div>
             <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
-            <HpBar hpPercent={calculateHpPercent(currentHp, totalHp)}></HpBar>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
+            <HpBar hpPercent={calculateHpPercent(currentHp, totalHp)}></HpBar>
             <h2 className="hp-text">
               HP: {currentHp}/{totalHp}
             </h2>
