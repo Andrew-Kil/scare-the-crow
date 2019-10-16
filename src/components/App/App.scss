@@ -5,12 +5,17 @@ $quaternary-color: #d9d9d9;
 
 * {
   color: $secondary-color;
-  font-family: "Creepster", cursive;
-  font-size: 22px;
+  font-family: "Amatic SC", cursive;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+html {
+  min-height: 100vh;
 }
 
 body {
-  background-color: $primary-color;
+  background-image: linear-gradient(to bottom, $tertiary-color, $primary-color);
 }
 
 .App {
@@ -18,7 +23,8 @@ body {
 }
 
 .scare-the-crow-header {
-  font-family: "Nosifer", cursive;
-  font-size: 52px;
+  font-family: "Creepster", cursive;
+  font-size: 58px;
   margin: 0;
+  text-shadow: 1px 1px 15px $quaternary-color;
 }

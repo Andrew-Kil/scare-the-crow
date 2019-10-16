@@ -5,11 +5,13 @@ import {
   isUserGuessRepeated,
   isUserGuessLetter,
   gameDifficultyTypes,
-  isUserWinner
+  isUserWinner,
+  calculateHpPercent
 } from "../../utils/utils";
 import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
 import scarecrow from "../../assets/scarecrow.png";
+import ghost from "../../assets/ghost.png";
 import "./Game.scss";
 
 class Game extends Component {
@@ -91,11 +93,6 @@ class Game extends Component {
     });
   };
 
-  calculateHpPercent = () => {
-    const { currentHp, totalHp } = this.state;
-    return (currentHp / totalHp) * 100;
-  };
-
   render() {
     const {
       userWin,
@@ -111,9 +108,9 @@ class Game extends Component {
       <div>
         {!userWin && currentHp ? (
           <div>
-            <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
-            <HpBar hpPercent={this.calculateHpPercent()}></HpBar>
+            <HpBar hpPercent={calculateHpPercent(currentHp, totalHp)}></HpBar>
+            <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <h2 className="hp-text">
               HP: {currentHp}/{totalHp}
             </h2>
@@ -127,7 +124,6 @@ class Game extends Component {
                 onChange={this.handleInputChange}
                 autoComplete="off"
                 autoFocus={true}
-                required={true}
                 onKeyUp={this.handleSubmit}
                 style={{ width: "20px" }}></input>
             </label>
@@ -150,8 +146,11 @@ class Game extends Component {
           </div>
         ) : (
           <div>
-            <h1>DEFEAT!!!</h1>
+            <h1 className="defeat-text">DEFEAT!!!</h1>
             <h3>Secret Word: {secretWord}</h3>
+            <div class="ghost-container">
+              <img className="ghost" src={ghost} alt="scary ghost!"></img>
+            </div>
           </div>
         )}
         <div className="new-game-button-container">

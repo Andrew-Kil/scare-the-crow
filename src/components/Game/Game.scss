@@ -3,20 +3,35 @@
 input {
   padding-left: 10px;
   margin-left: 10px;
+  border-radius: 5px;
+  border: 4px solid black;
 }
 
 .hp-text {
-  font-size: 32px;
+  font-size: 42px;
+  font-weight: 900;
+  margin: 10px;
+}
+
+.defeat-text {
+  font-size: 52px;
+}
+
+.ghost {
+  width: 25%;
 }
 
 .new-game-button-container {
   margin-top: 20px;
 
   button {
-    border-radius: 25px;
+    border-radius: 15px;
+    padding: 5px;
+    border: 4px solid white;
 
     &:hover {
       cursor: pointer;
+      border: 4px solid black;
     }
   }
 }
