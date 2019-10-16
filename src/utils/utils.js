@@ -56,3 +56,7 @@ export const gameDifficultyTypes = {
 export const isUserWinner = (secretWord, allGuesses) => {
   return [...secretWord].every(letter => allGuesses.includes(letter));
 };
+
+export const calculateHpPercent = (currentHp, totalHp) => {
+  return (currentHp / totalHp) * 100;
+};
