@@ -1,4 +1,5 @@
 import React from "react";
+import "./SelectDifficulty.scss";
 
 const SelectDifficulty = props => {
   return (

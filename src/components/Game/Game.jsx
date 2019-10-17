@@ -137,7 +137,7 @@ class Game extends Component {
           <div>
             <h1 className="defeat-text">DEFEAT!!!</h1>
             <h3>Secret Word: {secretWord}</h3>
-            <div class="ghost-container">
+            <div className="ghost-container">
               <img className="ghost" src={ghost} alt="scary ghost!"></img>
             </div>
           </div>

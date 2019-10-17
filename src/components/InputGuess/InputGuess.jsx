@@ -1,4 +1,5 @@
 import React from "react";
+import "./InputGuess.scss";
 
 const InputGuess = props => {
   return (
@@ -13,8 +14,7 @@ const InputGuess = props => {
           onChange={props.handleInputChange}
           autoComplete="off"
           autoFocus={true}
-          onKeyUp={props.handleSubmit}
-          style={{ width: "20px" }}></input>
+          onKeyUp={props.handleSubmit}></input>
       </label>
     </>
   );
