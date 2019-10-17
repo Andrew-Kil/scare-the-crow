@@ -19,9 +19,9 @@ import "./Game.scss";
 class Game extends Component {
   state = {
     userWin: false,
-    gameDifficulty: "normal",
-    totalHp: 6,
-    currentHp: 6,
+    gameDifficulty: localStorage.getItem("gameDifficulty") || "normal",
+    totalHp: localStorage.getItem("totalHp") || 6,
+    currentHp: localStorage.getItem("currentHp") || 6,
     allGuesses: [],
     incorrectGuesses: [],
     userGuess: "",
@@ -47,6 +47,10 @@ class Game extends Component {
   handleSelectChange = e => {
     const newState = gameDifficultyTypes[e.target.value];
     this.setState({ ...newState });
+    const settings = Object.entries(newState);
+    for (const [setting, value] of settings) {
+      localStorage.setItem(setting, value);
+    }
     this.startNewGame(e.target.value);
   };
 
