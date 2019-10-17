@@ -10,6 +10,7 @@ import {
 } from "../../utils/utils";
 import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
+import SelectDifficulty from "../SelectDifficulty/SelectDifficulty";
 import scarecrow from "../../assets/scarecrow.png";
 import ghost from "../../assets/ghost.png";
 import "./Game.scss";
@@ -128,17 +129,9 @@ class Game extends Component {
                 style={{ width: "20px" }}></input>
             </label>
             <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
-            <label>
-              Difficulty:{" "}
-              <select
-                defaultValue={gameDifficulty}
-                onChange={this.handleSelectChange}>
-                <option value="easy">Easy</option>
-                <option value="normal">Normal</option>
-                <option value="hard">Hard</option>
-                <option value="helloween">Helloween</option>
-              </select>
-            </label>
+            <SelectDifficulty
+              gameDifficulty={gameDifficulty}
+              handleSelectChange={this.handleSelectChange}></SelectDifficulty>
           </div>
         ) : userWin && currentHp ? (
           <div>

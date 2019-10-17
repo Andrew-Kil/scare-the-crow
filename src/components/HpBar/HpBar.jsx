@@ -1,5 +1,5 @@
 import React from "react";
-import FilledBar from "./FilledBar/FilledBar";
+import FilledBar from "../FilledBar/FilledBar";
 import "./HpBar.scss";
 
 const HpBar = props => {
