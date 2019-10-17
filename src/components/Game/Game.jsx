@@ -10,6 +10,7 @@ import {
 } from "../../utils/utils";
 import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
+import InputGuess from "../InputGuess/InputGuess";
 import SelectDifficulty from "../SelectDifficulty/SelectDifficulty";
 import scarecrow from "../../assets/scarecrow.png";
 import ghost from "../../assets/ghost.png";
@@ -115,19 +116,10 @@ class Game extends Component {
             <h2 className="hp-text">
               HP: {currentHp}/{totalHp}
             </h2>
-            <label>
-              Guess a letter:
-              <input
-                type="text"
-                value={userGuess}
-                maxLength="1"
-                name="userGuess"
-                onChange={this.handleInputChange}
-                autoComplete="off"
-                autoFocus={true}
-                onKeyUp={this.handleSubmit}
-                style={{ width: "20px" }}></input>
-            </label>
+            <InputGuess
+              userGuess={userGuess}
+              handleInputChange={this.handleInputChange}
+              handleSubmit={this.handleSubmit}></InputGuess>
             <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
             <SelectDifficulty
               gameDifficulty={gameDifficulty}
