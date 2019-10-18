@@ -32,6 +32,12 @@ body {
   animation: text-focus-in 1.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 
+@media screen and (max-width: 320px) {
+  .scare-the-crow-header {
+    font-size: 42px;
+  }
+}
+
 @-webkit-keyframes text-focus-in {
   0% {
     -webkit-filter: blur(12px);

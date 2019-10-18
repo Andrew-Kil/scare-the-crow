@@ -7,10 +7,32 @@ input {
   border: 4px solid black;
 }
 
+.scarecrow {
+  width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+  .scarecrow {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .scarecrow {
+    width: 40%;
+  }
+}
+
 .hp-text {
   font-size: 42px;
   font-weight: 900;
-  margin: 10px;
+  margin: 0;
+}
+
+.score-text,
+.high-score-text,
+.incorrect-guesses-text {
+  margin: 0;
 }
 
 .defeat-text {
@@ -18,7 +40,7 @@ input {
 }
 
 .ghost {
-  width: 25%;
+  width: 20%;
 }
 
 .new-game-button-container {
@@ -31,7 +53,7 @@ input {
 
     &:hover {
       cursor: pointer;
-      background-color: $primary-color;
+      box-shadow: 1px 1px 15px $quaternary-color;
     }
   }
 }
