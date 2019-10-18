@@ -30,6 +30,14 @@ export const isUserGuessRepeated = (userGuess, allGuesses) => {
   return allGuesses.includes(userGuess);
 };
 
+export const isUserWinner = (secretWord, allGuesses) => {
+  return [...secretWord].every(letter => allGuesses.includes(letter));
+};
+
+export const calculateHpPercent = (currentHp, totalHp) => {
+  return (currentHp / totalHp) * 100;
+};
+
 export const gameDifficultyTypes = {
   easy: {
     gameDifficulty: "easy",
@@ -53,10 +61,20 @@ export const gameDifficultyTypes = {
   }
 };
 
-export const isUserWinner = (secretWord, allGuesses) => {
-  return [...secretWord].every(letter => allGuesses.includes(letter));
+export const updateStateValidResponse = state => {
+  const { allGuesses, userGuess } = state;
+  return {
+    allGuesses: [...allGuesses, userGuess],
+    userGuess: ""
+  };
 };
 
-export const calculateHpPercent = (currentHp, totalHp) => {
-  return (currentHp / totalHp) * 100;
+export const updateStateInvalidResponse = state => {
+  const { currentHp, allGuesses, userGuess, incorrectGuesses } = state;
+  return {
+    currentHp: currentHp - 1,
+    allGuesses: [...allGuesses, userGuess],
+    incorrectGuesses: [...incorrectGuesses, userGuess],
+    userGuess: ""
+  };
 };

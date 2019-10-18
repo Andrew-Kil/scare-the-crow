@@ -6,7 +6,9 @@ import {
   isUserGuessLetter,
   gameDifficultyTypes,
   isUserWinner,
-  calculateHpPercent
+  calculateHpPercent,
+  updateStateValidResponse,
+  updateStateInvalidResponse
 } from "../../utils/utils";
 import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
@@ -60,24 +62,10 @@ class Game extends Component {
     !isUserGuessRepeated(userGuess, allGuesses) && e.target.value
       ? this.setState(
           oldState => {
-            const {
-              currentHp,
-              allGuesses,
-              incorrectGuesses,
-              userGuess,
-              secretWord
-            } = oldState;
+            const { userGuess, secretWord } = oldState;
             return isUserGuessValid(userGuess, secretWord)
-              ? {
-                  allGuesses: [...allGuesses, userGuess],
-                  userGuess: ""
-                }
-              : {
-                  currentHp: currentHp - 1,
-                  allGuesses: [...allGuesses, userGuess],
-                  incorrectGuesses: [...incorrectGuesses, userGuess],
-                  userGuess: ""
-                };
+              ? updateStateValidResponse(this.state)
+              : updateStateInvalidResponse(this.state);
           },
           () => {
             const { secretWord, allGuesses } = this.state;
