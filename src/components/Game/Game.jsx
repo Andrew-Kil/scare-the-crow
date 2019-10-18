@@ -14,7 +14,6 @@ import InputGuess from "../InputGuess/InputGuess";
 import SelectDifficulty from "../SelectDifficulty/SelectDifficulty";
 import scarecrow from "../../assets/scarecrow.png";
 import ghost from "../../assets/ghost.png";
-import music from "../../assets/music.mp3";
 import "./Game.scss";
 
 class Game extends Component {
@@ -30,11 +29,8 @@ class Game extends Component {
     secretWord: ""
   };
 
-  audio = new Audio(music);
-
   componentDidMount() {
     this.getAndSetSecretWord();
-    this.audio.play();
   }
 
   getAndSetSecretWord = async () => {
