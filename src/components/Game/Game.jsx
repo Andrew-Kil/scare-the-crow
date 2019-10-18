@@ -19,7 +19,8 @@ import "./Game.scss";
 
 class Game extends Component {
   state = {
-    userWin: false,
+    score: 0,
+    highScore: localStorage.getItem("highScore") || 0,
     gameDifficulty: localStorage.getItem("gameDifficulty") || "normal",
     totalHp: localStorage.getItem("totalHp") || 6,
     currentHp: localStorage.getItem("currentHp") || 6,
@@ -29,11 +30,11 @@ class Game extends Component {
     secretWord: ""
   };
 
-  music = new Audio(music);
+  audio = new Audio(music);
 
   componentDidMount() {
     this.getAndSetSecretWord();
-    this.music.play();
+    this.audio.play();
   }
 
   getAndSetSecretWord = async () => {
@@ -49,13 +50,13 @@ class Game extends Component {
   };
 
   handleSelectChange = e => {
+    this.newGame();
     const newState = gameDifficultyTypes[e.target.value];
     this.setState({ ...newState });
     const settings = Object.entries(newState);
     for (const [setting, value] of settings) {
       localStorage.setItem(setting, value);
     }
-    this.startNewGame(e.target.value);
   };
 
   handleSubmit = e => {
@@ -85,27 +86,44 @@ class Game extends Component {
           () => {
             const { secretWord, allGuesses } = this.state;
             if (isUserWinner(secretWord, allGuesses)) {
-              this.setState({ userWin: true });
+              this.nextRound();
+              this.calculateScore();
             }
           }
         )
       : this.setState({ userGuess: "" });
   };
 
-  startNewGame = gameDifficulty => {
+  calculateScore = () => {
+    const { score, secretWord } = this.state;
+    this.setState({ score: score + secretWord.length }, () => {
+      const { score, highScore } = this.state;
+      if (score > highScore) {
+        this.setState({ highScore: score });
+        localStorage.setItem("highScore", score + secretWord.length);
+      }
+    });
+  };
+
+  nextRound = () => {
+    const newState = gameDifficultyTypes[this.state.gameDifficulty];
     this.getAndSetSecretWord();
-    const newState = gameDifficultyTypes[gameDifficulty];
     this.setState({
       ...newState,
-      userWin: false,
       allGuesses: [],
       incorrectGuesses: []
     });
   };
 
+  newGame = () => {
+    this.nextRound();
+    this.setState({ score: 0 });
+  };
+
   render() {
     const {
-      userWin,
+      score,
+      highScore,
       gameDifficulty,
       currentHp,
       allGuesses,
@@ -116,9 +134,9 @@ class Game extends Component {
     } = this.state;
     return (
       <div>
-        {!userWin && currentHp ? (
+        {currentHp ? (
           <div>
-            <img src={scarecrow} alt="scarecrow" style={{ width: "25%" }}></img>
+            <img src={scarecrow} alt="scarecrow" className="scarecrow"></img>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
             <HpBar hpPercent={calculateHpPercent(currentHp, totalHp)}></HpBar>
             <h2 className="hp-text">
@@ -128,14 +146,12 @@ class Game extends Component {
               userGuess={userGuess}
               handleInputChange={this.handleInputChange}
               handleSubmit={this.handleSubmit}></InputGuess>
-            <p>Incorrect Guesses: {incorrectGuesses.toString()}</p>
+            <p className="incorrect-guesses-text">
+              Incorrect Guesses: {incorrectGuesses.toString()}
+            </p>
             <SelectDifficulty
               gameDifficulty={gameDifficulty}
               handleSelectChange={this.handleSelectChange}></SelectDifficulty>
-          </div>
-        ) : userWin && currentHp ? (
-          <div>
-            <h1>VICTORY!!!</h1>
           </div>
         ) : (
           <div>
@@ -144,13 +160,13 @@ class Game extends Component {
             <div className="ghost-container">
               <img className="ghost" src={ghost} alt="scary ghost!"></img>
             </div>
+            <div className="new-game-button-container">
+              <button onClick={() => this.newGame()}>New Game</button>
+            </div>
           </div>
         )}
-        <div className="new-game-button-container">
-          <button onClick={() => this.startNewGame(gameDifficulty)}>
-            New Game
-          </button>
-        </div>
+        <h1 className="score-text">Score: {score}</h1>
+        <h1 className="high-score-text">High Score: {highScore}</h1>
       </div>
     );
   }
