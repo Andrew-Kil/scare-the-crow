@@ -14,6 +14,7 @@ import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
 import InputGuess from "../InputGuess/InputGuess";
 import SelectDifficulty from "../SelectDifficulty/SelectDifficulty";
+import VictoryScreen from "../VictoryScreen/VictoryScreen";
 import DefeatScreen from "../DefeatScreen/DefeatScreen";
 import scarecrow from "../../assets/scarecrow.png";
 import "./Game.scss";
@@ -141,11 +142,10 @@ class Game extends Component {
               handleSelectChange={this.handleSelectChange}></SelectDifficulty>
           </div>
         ) : userWin && currentHp ? (
-          <div>
-            <h1>VICTORY!!!</h1>
-            <button onClick={() => this.nextRound()}>Continue?</button>
-            <button onClick={() => this.newGame()}>New Game</button>
-          </div>
+          <VictoryScreen
+            secretWord={secretWord}
+            nextRound={this.nextRound}
+            newGame={this.newGame}></VictoryScreen>
         ) : (
           <DefeatScreen
             secretWord={secretWord}

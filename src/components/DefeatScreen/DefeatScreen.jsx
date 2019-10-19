@@ -1,5 +1,5 @@
 import React from "react";
-import defeatGhost from "../../assets/ghost.png";
+import defeatGhost from "../../assets/defeat-ghost.png";
 import "./DefeatScreen.scss";
 
 const DefeatScreen = props => {
