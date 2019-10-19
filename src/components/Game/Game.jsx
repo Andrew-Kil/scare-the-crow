@@ -20,6 +20,7 @@ import "./Game.scss";
 
 class Game extends Component {
   state = {
+    userWin: false,
     score: 0,
     highScore: localStorage.getItem("highScore") || 0,
     gameDifficulty: localStorage.getItem("gameDifficulty") || "normal",
@@ -70,7 +71,7 @@ class Game extends Component {
           () => {
             const { secretWord, allGuesses } = this.state;
             if (isUserWinner(secretWord, allGuesses)) {
-              this.nextRound();
+              this.setState({ userWin: true });
               this.calculateScore();
             }
           }
@@ -94,6 +95,7 @@ class Game extends Component {
     this.getAndSetSecretWord();
     this.setState({
       ...newState,
+      userWin: false,
       allGuesses: [],
       incorrectGuesses: []
     });
@@ -106,6 +108,7 @@ class Game extends Component {
 
   render() {
     const {
+      userWin,
       score,
       highScore,
       gameDifficulty,
@@ -118,7 +121,7 @@ class Game extends Component {
     } = this.state;
     return (
       <div>
-        {currentHp ? (
+        {!userWin && currentHp ? (
           <div>
             <img src={scarecrow} alt="scarecrow" className="scarecrow"></img>
             <Word allGuesses={allGuesses} secretWord={secretWord}></Word>
@@ -136,6 +139,12 @@ class Game extends Component {
             <SelectDifficulty
               gameDifficulty={gameDifficulty}
               handleSelectChange={this.handleSelectChange}></SelectDifficulty>
+          </div>
+        ) : userWin && currentHp ? (
+          <div>
+            <h1>VICTORY!!!</h1>
+            <button onClick={() => this.nextRound()}>Continue?</button>
+            <button onClick={() => this.newGame()}>New Game</button>
           </div>
         ) : (
           <DefeatScreen
