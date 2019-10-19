@@ -14,8 +14,8 @@ import HpBar from "../HpBar/HpBar";
 import Word from "../Word/Word";
 import InputGuess from "../InputGuess/InputGuess";
 import SelectDifficulty from "../SelectDifficulty/SelectDifficulty";
+import DefeatScreen from "../DefeatScreen/DefeatScreen";
 import scarecrow from "../../assets/scarecrow.png";
-import ghost from "../../assets/ghost.png";
 import "./Game.scss";
 
 class Game extends Component {
@@ -138,16 +138,9 @@ class Game extends Component {
               handleSelectChange={this.handleSelectChange}></SelectDifficulty>
           </div>
         ) : (
-          <div>
-            <h1 className="defeat-text">DEFEAT!!!</h1>
-            <h3>Secret Word: {secretWord}</h3>
-            <div className="ghost-container">
-              <img className="ghost" src={ghost} alt="scary ghost!"></img>
-            </div>
-            <div className="new-game-button-container">
-              <button onClick={() => this.newGame()}>New Game</button>
-            </div>
-          </div>
+          <DefeatScreen
+            secretWord={secretWord}
+            newGame={this.newGame}></DefeatScreen>
         )}
         <h1 className="score-text">Score: {score}</h1>
         <h1 className="high-score-text">High Score: {highScore}</h1>

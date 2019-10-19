@@ -41,8 +41,8 @@ export const calculateHpPercent = (currentHp, totalHp) => {
 export const gameDifficultyTypes = {
   easy: {
     gameDifficulty: "easy",
-    totalHp: 7,
-    currentHp: 7
+    totalHp: 8,
+    currentHp: 8
   },
   normal: {
     gameDifficulty: "normal",
@@ -51,11 +51,6 @@ export const gameDifficultyTypes = {
   },
   hard: {
     gameDifficulty: "hard",
-    totalHp: 5,
-    currentHp: 5
-  },
-  helloween: {
-    gameDifficulty: "helloween",
     totalHp: 4,
     currentHp: 4
   }

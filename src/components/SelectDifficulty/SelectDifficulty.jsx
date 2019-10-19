@@ -12,7 +12,6 @@ const SelectDifficulty = props => {
           <option value="easy">Easy</option>
           <option value="normal">Normal</option>
           <option value="hard">Hard</option>
-          <option value="helloween">Helloween</option>
         </select>
       </label>
     </>
