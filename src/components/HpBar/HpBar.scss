@@ -5,4 +5,8 @@
   border: 4px solid black;
   margin: auto;
   background: #ff0000;
+
+  &:hover {
+    box-shadow: 1px 1px 15px #48c800;
+  }
 }

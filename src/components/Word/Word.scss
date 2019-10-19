@@ -11,6 +11,10 @@
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 10px;
+
+  &:hover {
+    box-shadow: 1px 1px 15px $quaternary-color;
+  }
 }
 
 @media screen and (max-width: 400px) {

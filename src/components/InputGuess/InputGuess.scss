@@ -1,6 +1,12 @@
+@import "../App/App.scss";
+
 label {
   input {
     width: 20px;
     border-radius: 10px;
+
+    &:hover {
+      box-shadow: 1px 1px 15px $quaternary-color;
+    }
   }
 }
