@@ -2,7 +2,11 @@ import axios from "axios";
 
 export const getRandomWord = async () => {
   return await axios
-    .get(`/words?start=${Math.floor(Math.random() * 162414)}&count=1`)
+    .get(
+      `https://scare-the-crow-server.herokuapp.com/words?start=${Math.floor(
+        Math.random() * 162414
+      )}&count=1`
+    )
     .then(res => res.data)
     .catch(err => console.error(err));
 };

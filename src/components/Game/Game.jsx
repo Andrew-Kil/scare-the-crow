@@ -40,7 +40,6 @@ class Game extends Component {
   getAndSetSecretWord = async () => {
     const secretWord = await getRandomWord();
     this.setState({ secretWord });
-    console.log(secretWord);
   };
 
   handleInputChange = e => {
