@@ -11,36 +11,26 @@ export const getRandomWord = async () => {
     .catch(err => console.error(err));
 };
 
-export const isUserGuessValid = (userGuess, secretWord) => {
-  return (
-    isUserGuessSingleChar(userGuess) &&
-    isUserGuessInSecretWord(userGuess, secretWord)
-  );
-};
+export const isUserGuessValid = (userGuess, secretWord) =>
+  isUserGuessSingleChar(userGuess) &&
+  isUserGuessInSecretWord(userGuess, secretWord);
 
-const isUserGuessSingleChar = userGuess => {
-  return userGuess.length === 1 ? true : false;
-};
+const isUserGuessSingleChar = userGuess => userGuess.length === 1;
 
-const isUserGuessInSecretWord = (userGuess, secretWord) => {
-  return secretWord.includes(userGuess) ? true : false;
-};
+const isUserGuessInSecretWord = (userGuess, secretWord) =>
+  secretWord.includes(userGuess);
 
-export const isUserGuessLetter = userGuess => {
-  return userGuess.toLowerCase() !== userGuess.toUpperCase();
-};
+export const isUserGuessLetter = userGuess =>
+  userGuess.toLowerCase() !== userGuess.toUpperCase();
 
-export const isUserGuessRepeated = (userGuess, allGuesses) => {
-  return allGuesses.includes(userGuess);
-};
+export const isUserGuessRepeated = (userGuess, allGuesses) =>
+  allGuesses.includes(userGuess);
 
-export const isUserWinner = (secretWord, allGuesses) => {
-  return [...secretWord].every(letter => allGuesses.includes(letter));
-};
+export const isUserWinner = (secretWord, allGuesses) =>
+  [...secretWord].every(letter => allGuesses.includes(letter));
 
-export const calculateHpPercent = (currentHp, totalHp) => {
-  return (currentHp / totalHp) * 100;
-};
+export const calculateHpPercent = (currentHp, totalHp) =>
+  (currentHp / totalHp) * 100;
 
 export const gameDifficultyTypes = {
   easy: {
