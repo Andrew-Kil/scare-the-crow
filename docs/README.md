@@ -4,6 +4,9 @@ Scare the Crow is my implementation of the classic word game, [Hangman](<https:/
 
 The objective of this game is to guess the randomly picked secret word using 6 or less guesses. The user plays the role of a scarecrow with 6 HP (hit points or health points). Each time the player guesses incorrectly, the crow dive-bombs the scarecrow, dealing damage equivalent to 1 HP. If the user guesses the secret word correctly, with HP remaining, the scarecrow successfully scares the crow away! If not, the crow defeats the scarecrow!
 
+# Demo
+https://scarethecrow.netlify.com/
+
 # Prerequisites
 
 - [node](https://nodejs.org/en/)
